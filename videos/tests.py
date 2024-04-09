@@ -1,5 +1,6 @@
 from django.test import TestCase
-from .models import Video, PublishStateOptions
+from .models import Video
+from flixnow.models import PublishStateOptions
 from django.utils import timezone
 from django.utils.text import slugify
 

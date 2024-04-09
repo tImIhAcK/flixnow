@@ -3,7 +3,8 @@ from django.dispatch import receiver
 from django.utils import timezone
 from django.utils.text import slugify
 
-from .models import Video, PublishStateOptions
+from .models import Video
+from flixnow.models import PublishStateOptions
 
 @receiver(pre_save, sender=Video)
 def publish_video_state_pre_save(sender, instance, *args, **kwargs):

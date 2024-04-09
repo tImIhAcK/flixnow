@@ -1,16 +1,9 @@
 from django.db import models
 from django.utils import timezone
 from django.utils.text import slugify
-
-class PublishStateOptions(models.TextChoices):
-        PUBLISH = 'PU', 'Publish'
-        DRAFT = 'DR', 'Draft'
-        # UNLISTED = 'UN', 'Unlisted'
-        # PRIVATE = 'PR', 'Private'
-    
+from flixnow.models import PublishStateOptions
 
 class VideoQuerySet(models.QuerySet):
-    now = timezone.now()
     def published(self):
         now = timezone.now()
         return self.filter(
