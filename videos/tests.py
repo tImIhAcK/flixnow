@@ -34,6 +34,12 @@ class VideoModelTestCase(TestCase):
         self.assertEqual(qs.count(), 1)
         self.assertTrue(publish_qs.exists())
         
+        
+    def test_publish_manager(self):
+        publish_qs = Video.objects.published()
+        self.assertTrue(publish_qs.exists())
+        
+        
     def test_slug_field(self):
         title = self.obj_a.title
         test_slug = slugify(title)
