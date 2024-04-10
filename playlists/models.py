@@ -2,6 +2,7 @@ from django.db import models
 from django.utils import timezone
 from django.utils.text import slugify
 from flixnow.models import PublishStateOptions
+from videos.models import Video
 
 class PlaylistQuerySet(models.QuerySet):
     def published(self):
@@ -20,6 +21,7 @@ class PlaylistManager(models.Manager):
 
 
 class Playlist(models.Model):
+    video = models.ForeignKey(Video, related_name='playlist_videos', null=True, on_delete=models.SET_NULL)
     title = models.CharField(max_length=50)
     description = models.TextField(max_length=2500, blank=True, null=True)
     slug = models.SlugField(blank=True, null=True)
@@ -37,4 +39,4 @@ class Playlist(models.Model):
     @property
     def is_published(self):
         return self.active
-            
+    

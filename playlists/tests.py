@@ -2,13 +2,19 @@ from django.test import TestCase
 from .models import Playlist
 from flixnow.models import  PublishStateOptions
 from django.utils import timezone
+from videos.models import Video
 from django.utils.text import slugify
 
 # Create your tests here.
 class PlaylistModelTestCase(TestCase):
     def setUp(self):
-        self.obj_a = Playlist.objects.create(title='This is the title')
-        self.obj_b = Playlist.objects.create(title='This is the title 2', state=PublishStateOptions.PUBLISH)
+        self.video_a = Video.objects.create(title='This is video title', video_id='abc123')
+        self.obj_a = Playlist.objects.create(title='This is the title', video=self.video_a)
+        self.obj_b = Playlist.objects.create(title='This is the title 2', state=PublishStateOptions.PUBLISH, video=self.video_a)
+        
+    def test_video_playlist(self):
+        qs = self.video_a.playlist_videos.all()
+        self.assertEqual(qs.count(), 2)
         
     def test_valid_title(self):
         title = 'This is the title'
