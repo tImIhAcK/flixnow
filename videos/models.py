@@ -38,6 +38,9 @@ class Video(models.Model):
     @property
     def is_published(self):
         return self.active
+    
+    def get_playlist_ids(self):
+        return list(self.playlist_videos.all().values_list('id', flat=True))
             
 
 class VideoProxy(Video):
